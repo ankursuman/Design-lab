@@ -1,6 +1,7 @@
 import datetime
 import time
-from sensor_module import Veichle,Slot,Sensor_API,Sensor_manager
+from sensor_module import Slot,Sensor_API,Sensor_manager
+from vehicleClass import Vehicle
           
 class Display_driver(Veichle,Slot):
     def __init__(self,entry_time,exit_time,driver_name,car_plate_number):
