@@ -57,7 +57,12 @@ class Main_manager(Slot,Veichle):
                     return False
             
             return True
-        
+    
+    def get_slot(self):
+        for slot in range(1001):
+            if self.slot_list[slot] is not True:
+                return slot    
+          
     def close_entry_gate_signal(self,signal):
         if signal:
             return True
@@ -76,6 +81,7 @@ class Main_manager(Slot,Veichle):
 if __name__ == "__main__":
 
     veichle_list = {}
+    veichle_slot_list = {}
     inputt = int(input("Number of available slot: "))
     object2=Main_manager(inputt)
     Run_program = "y"
@@ -106,6 +112,9 @@ if __name__ == "__main__":
                 object1=Sensor_manager(entry_time,None,driver_name,car_plate)
                 veichle_list[car_plate] = object1
                 _id+=1
+                slot_no = object2.get_slot()
+                self.slot_list[slot_no] = True
+                veichle_slot_list[car_plate]=slot_no
                 object1.detectVeichle(True)
                 count = object2.update_available_slot(True)
                 print("Current available slots is {}".format(count))
@@ -133,6 +142,8 @@ if __name__ == "__main__":
                     print("gate opened")
                     time.sleep(3)
                     print("gate closed")
+                    slot_no = veichle_slot_list[car_plate]
+                    self.slot_list[slot_n0] = False
                     count = object2.update_available_slot(False)
                     print("Current available slots is {}".format(count))
                 else:
