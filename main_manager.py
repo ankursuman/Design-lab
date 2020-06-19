@@ -1,4 +1,5 @@
 import datetime
+import time
 from sensor_module import Veichle,Slot,Sensor_API,Sensor_manager
           
 class Display_driver(Veichle,Slot):
@@ -77,59 +78,71 @@ if __name__ == "__main__":
     veichle_list = {}
     inputt = int(input("Number of available slot: "))
     object2=Main_manager(inputt)
-    Run_program = True
+    Run_program = "y"
     _id = 0
-    while(Run_program):    
-        entrygate_status = bool(input("entry gate status: "))
-        available_slots = object2.display_available_slots()
-        if(available_slots == 1000):
-            print("All slots are available right now ")
-        if(available_slots == 0):
-            print("No slot is available")
+    while(Run_program == "y" or Run_program == "Y"): 
+        veichle_detected = bool(int(input("veichle detected at entry gate? : ")))
+        while (veichle_detected):   
+            entrygate_status = bool(input("entry gate status: "))
+            available_slots = object2.display_available_slots()
+            if(available_slots == 1000):
+                print("All slots are available right now ")
+            if(available_slots == 0):
+                print("No slot is available")
 
-        print("the available slots is {}".format(available_slots))
-        object1 = None
-        if( entrygate_status and available_slots == 0):
-            print("No slot is available right now")
+            print("the available slots is {}".format(available_slots))
+            object1 = None
+            if( entrygate_status and available_slots == 0):
+                print("No slot is available right now")
 
-        elif( entrygate_status and available_slots>0 and available_slots<1001):
-            print("gate opened")
-            #car_palte = object2.detect_car_plate()
-            car_plate = input("enter the car plate number: ")
-            driver_name = input("enter driver name: ")
-            entry_time = datetime.datetime.now()  
-            object1=Sensor_manager(entry_time,None,driver_name,car_plate)
-            veichle_list[car_plate] = object1
-            _id+=1
-            object1.detectVeichle(True)
-            count = object2.update_available_slot(True)
-            print("Current available slots is {}".format(count))
-            print("gate closed")
-        
-        exitgate_status = None
-        if available_slots>0 :
-            exitgate_status = bool(input("exit gate status: "))
-        
-        if( exitgate_status ):
-            car_plate = input("enter the car plate number: ")
-            exit_obj = veichle_list[car_plate]
-            exit_time = datetime.datetime.now()
-            object1.exit_time = exit_time
-            total_payment = (exit_time.minute - exit_obj.entry_time.minute )*30
-            print("total payable amount is {}".format(total_payment) )
-            payment_status = bool(input("payment status: "))
-            if payment_status:
+            elif( entrygate_status and available_slots>0 and available_slots<1001):
+                #car_palte = object2.detect_car_plate()
+                car_plate = input("enter the car plate number: ")
+                driver_name = input("enter driver name: ")
                 print("gate opened")
-                count = object2.update_available_slot(False)
-                print("Current available slots is {}".format(count))
+                time.sleep(2)
                 print("gate closed")
+                entry_time = datetime.datetime.now()  
+                object1=Sensor_manager(entry_time,None,driver_name,car_plate)
+                veichle_list[car_plate] = object1
+                _id+=1
+                object1.detectVeichle(True)
+                count = object2.update_available_slot(True)
+                print("Current available slots is {}".format(count))
+            
             else:
-                print("Payment unsuccessfull")
+                pass
+            
+            veichle_detected = bool(int(input("veichle detected at entry gate? : ")))
         
-        else:
-            exitgate_status = False
+        veichle_detected = bool(int(input("veichle detected at exit gate? : ")))
+        while(veichle_detected):
+            exitgate_status = None
+            if available_slots>0 :
+                exitgate_status = bool(input("exit gate status: "))
+            
+            if( exitgate_status ):
+                car_plate = input("enter the car plate number: ")
+                exit_obj = veichle_list[car_plate]
+                exit_time = datetime.datetime.now()
+                object1.exit_time = exit_time
+                total_payment = (exit_time.second - exit_obj.entry_time.second )*60
+                print("total payable amount is {}".format(total_payment) )
+                payment_status = bool(input("payment status: "))
+                if payment_status:
+                    print("gate opened")
+                    time.sleep(3)
+                    print("gate closed")
+                    count = object2.update_available_slot(False)
+                    print("Current available slots is {}".format(count))
+                else:
+                    print("Payment unsuccessfull")
+            
+            else:
+                exitgate_status = False
+            veichle_detected = bool(int(input("veichle detected at exit gate? : ")))
 
-        Run_program = bool(input("Enter True to continue else false"))
+        Run_program = input("Enter y to continue else press any key : ")
 
     # if object2.display_available_slots():
     #     print(object2.detect_car_plate())
