@@ -16,6 +16,9 @@ class Sensor_API(Slot,Veichle):
     def __init__(self,entry_time,exit_time,driver_name,car_plate_number):
         Slot.__init__(self)
         Veichle.__init__(self,entry_time,exit_time,driver_name,car_plate_number)
+    
+    def update_slot(self,slot_no,status):
+        self.slot_list[slot_no] = status
         
     def receive_update(self):
         return self.slot_list
