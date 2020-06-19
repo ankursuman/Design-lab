@@ -143,7 +143,7 @@ if __name__ == "__main__":
                     time.sleep(3)
                     print("gate closed")
                     slot_no = veichle_slot_list[car_plate]
-                    self.slot_list[slot_n0] = False
+                    self.slot_list[slot_no] = False
                     count = object2.update_available_slot(False)
                     print("Current available slots is {}".format(count))
                 else:
