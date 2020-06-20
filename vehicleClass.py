@@ -36,7 +36,7 @@ class Vehicle:
                     row+=1
 
 
-    def change_value(self,column, row, new_value):
+    def write_exit_time(self,column, row, new_value):
         lines = []
         with open('data.txt', 'r+') as file:
             for line in file:
