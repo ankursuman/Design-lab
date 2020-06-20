@@ -14,5 +14,7 @@ class Vehicle:
             return "driver name cannot be a number"
         elif(self.car_plate_number is None):
             return "car plate number cannot be None"
+        elif(len(self.car_plate_number) != 10)
+            return "enter a valid car plate number"
         else:
             return "true"
