@@ -111,11 +111,12 @@ if __name__ == "__main__":
                 print("gate closed")
                 entry_time = datetime.datetime.now()  
                 object1=Sensor_manager(entry_time,None,driver_name,car_plate)
-                object1.store()
+                object3=Vehicle(entry_time,None,driver_name,car_plate)
+                object3.Store()
                 veichle_list[car_plate] = object1
                 _id+=1
                 slot_no = object2.get_slot()
-                self.slot_list[slot_no] = True
+                object2.slot_list[slot_no] = True
                 veichle_slot_list[car_plate]=slot_no
                 object1.detectVeichle(True)
                 count = object2.update_available_slot(True)
@@ -137,8 +138,8 @@ if __name__ == "__main__":
                 exit_obj = veichle_list[car_plate]
                 exit_time = datetime.datetime.now()
                 object1.exit_time = exit_time
-                row=object1.file_search(car_plate)
-                object1.change_value(row,2,str(car_plate))
+                row=object3.file_search(car_plate)
+                object3.change_value(row,2,str(exit_time))
                 total_payment = (exit_time.second - exit_obj.entry_time.second )*60
                 print("total payable amount is {}".format(total_payment) )
                 payment_status = bool(input("payment status: "))
@@ -147,7 +148,7 @@ if __name__ == "__main__":
                     time.sleep(3)
                     print("gate closed")
                     slot_no = veichle_slot_list[car_plate]
-                    self.slot_list[slot_no] = False
+                    object2.slot_list[slot_no] = False
                     count = object2.update_available_slot(False)
                     print("Current available slots is {}".format(count))
                 else:
