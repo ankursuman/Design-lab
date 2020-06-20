@@ -3,7 +3,7 @@ import time
 from sensor_module import Slot,Sensor_API,Sensor_manager
 from vehicleClass import Vehicle
           
-class Display_driver(Veichle,Slot):
+class Display_driver(Vehicle,Slot):
     def __init__(self,entry_time,exit_time,driver_name,car_plate_number):
         self.position = None
         Slot.__init__(self)
@@ -14,7 +14,7 @@ class Display_driver(Veichle,Slot):
     def Update_status(self,status):
         self.slot_list[self.position] = status
             
-class Main_manager(Slot,Veichle):
+class Main_manager(Slot,Vehicle):
     
     def __init__(self,available_Slot):
         self.notavailable=0
@@ -111,6 +111,7 @@ if __name__ == "__main__":
                 print("gate closed")
                 entry_time = datetime.datetime.now()  
                 object1=Sensor_manager(entry_time,None,driver_name,car_plate)
+                object1.store()
                 veichle_list[car_plate] = object1
                 _id+=1
                 slot_no = object2.get_slot()
@@ -136,6 +137,8 @@ if __name__ == "__main__":
                 exit_obj = veichle_list[car_plate]
                 exit_time = datetime.datetime.now()
                 object1.exit_time = exit_time
+                row=object1.file_search(car_plate)
+                object1.change_value(row,2,str(car_plate))
                 total_payment = (exit_time.second - exit_obj.entry_time.second )*60
                 print("total payable amount is {}".format(total_payment) )
                 payment_status = bool(input("payment status: "))
