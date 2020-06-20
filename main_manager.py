@@ -139,7 +139,7 @@ if __name__ == "__main__":
                 exit_time = datetime.datetime.now()
                 object1.exit_time = exit_time
                 row=object3.file_search(car_plate)
-                object3.change_value(row,2,str(exit_time))
+                object3.write_exit_time(row,2,str(exit_time))
                 total_payment = (exit_time.second - exit_obj.entry_time.second )*60
                 print("total payable amount is {}".format(total_payment) )
                 payment_status = bool(input("payment status: "))
