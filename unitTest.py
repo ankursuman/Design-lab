@@ -27,6 +27,13 @@ class TestVehicle(unittest.TestCase):
         obj = Vehicle("11:30:30",None,"abcd","Ab1234")
         result = obj.vehicle()
         self.assertEqual(result,"enter a valid car plate number")
+    
+    def test_read_write_from_file(self):
+        obj = vehicle("11:30:30",None,"abcd","ABCD123456")
+        reslut = obj.file_search("ABCD123456")
+        obj.write_exit_time(2,result,"12.59.58")
+        
+        
 
 if __name__ == "__main__":
     unittest.main()
