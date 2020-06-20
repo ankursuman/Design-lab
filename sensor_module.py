@@ -7,10 +7,10 @@ class Slot:
         for _ in range(1001):
             self.slot_list.append(status)
             
-class Sensor_API(Slot,Veichle):
+class Sensor_API(Slot,Vehicle):
     def __init__(self,entry_time,exit_time,driver_name,car_plate_number):
         Slot.__init__(self)
-        Veichle.__init__(self,entry_time,exit_time,driver_name,car_plate_number)
+        Vehicle.__init__(self,entry_time,exit_time,driver_name,car_plate_number)
     
     def update_slot(self,slot_no,status):
         self.slot_list[slot_no] = status
