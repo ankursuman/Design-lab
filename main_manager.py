@@ -151,8 +151,6 @@ if __name__ == "__main__":
                     object2.slot_list[slot_no] = False
                     count = object2.update_available_slot(False)
                     print("Current available slots is {}".format(count))
-                else:
-                    print("Payment unsuccessfull")
             
             else:
                 exitgate_status = False
