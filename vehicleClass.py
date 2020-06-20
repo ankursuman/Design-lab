@@ -18,9 +18,10 @@ class Vehicle:
             return "enter a valid car plate number"
         else:
             return "true"
+   
     def Store(self):
         f = open("data.txt", "a")
-        f.write(self.entry_time+" " +self.exit_time+" "+self.driver_name+" "+self.car_plate_number)
+        f.write(str(self.entry_time)+" " +str(self.exit_time)+" "+self.driver_name+" "+self.car_plate_number)
         f.close()
     
     def file_search(self,car_plate_number):
@@ -41,10 +42,11 @@ class Vehicle:
             for line in file:
                 lines.append(line.rstrip().split())
 
-           lines[row - 1][column - 1] = str(new_value)
+            lines[row - 1][column - 1] = str(new_value)
             file.seek(0)
             for line in lines:
                 line[-1] += "\n"    
                 file.write(' '.join(line))
     
+
 
