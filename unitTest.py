@@ -23,6 +23,10 @@ class TestVehicle(unittest.TestCase):
         obj = Vehicle("11:30:30",None,"abcd",None)
         result = obj.vehicle()
         self.assertEqual(result,"car plate number cannot be None")
+    def test_car_plate_number_if_not_valid(self):
+        obj = Vehicle("11:30:30",None,"abcd","Ab1234")
+        result = obj.vehicle()
+        self.assertEqual(result,"enter a valid car plate number")
 
 if __name__ == "__main__":
     unittest.main()
