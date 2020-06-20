@@ -92,6 +92,8 @@ if __name__ == "__main__":
         while (veichle_detected):   
             entrygate_status = bool(input("entry gate status: "))
             available_slots = object2.display_available_slots()
+            if(available_slots < 0 and available_slots > 1000):
+                print("Invalid Error")
             if(available_slots == 1000):
                 print("All slots are available right now ")
             if(available_slots == 0):
