@@ -31,7 +31,7 @@ class TestVehicle(unittest.TestCase):
     def test_read_write_from_file(self):
         obj = vehicle("11:30:30",None,"abcd","ABCD123456")
         reslut = obj.file_search("ABCD123456")
-        obj.write_exit_time(2,result,"12.59.58")
+        obj.write_exit_time(result,2,"12.59.58")
         result1 = obj.file_search("12.59.58")
         self.assertEqual(result,result1)
         
